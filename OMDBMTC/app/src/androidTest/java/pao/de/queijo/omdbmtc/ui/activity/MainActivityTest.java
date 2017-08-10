@@ -1,4 +1,4 @@
-package pao.de.queijo.omdbmtc.activity;
+package pao.de.queijo.omdbmtc.ui.activity;
 
 import android.support.test.espresso.action.ViewActions;
 import android.support.test.rule.ActivityTestRule;

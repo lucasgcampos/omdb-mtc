@@ -4,14 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="pao.de.queijo.omdbmtc.activity.MainActivity">
+    tools:context=".ui.activity.MainActivity">
 
     <LinearLayout
-        android:layout_width="368dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="8dp">
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="24dp"
+        android:orientation="horizontal">
 
         <EditText
             android:id="@+id/title"
@@ -24,6 +25,7 @@
             android:id="@+id/year"
             android:layout_width="90dp"
             android:layout_height="wrap_content"
+            android:inputType="number"
             android:hint="Ano" />
 
         <Button
@@ -38,9 +40,7 @@
         android:id="@+id/view_flipper"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="8dp">
+        android:layout_weight="1">
 
         <TextView
             android:layout_width="wrap_content"
