@@ -42,11 +42,12 @@ public class MainPresenter {
                 .observeOn(scheduler)
                 .doOnSubscribe(Void -> view.flipLoader())
                 .doOnError(Void -> view.flipContent())
-                .doOnComplete(view::flipResults)
                 .subscribe(result -> {
             if (result.isResponse()) {
                 view.bindResult(result.getSearch());
+                view.flipResults();
             } else {
+                view.flipContent();
                 view.showMovieNotFound();
             }}, error -> {
                     if (error instanceof UnknownHostException) {
