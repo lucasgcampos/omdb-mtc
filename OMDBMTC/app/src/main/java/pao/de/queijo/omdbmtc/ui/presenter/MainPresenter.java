@@ -1,6 +1,11 @@
 package pao.de.queijo.omdbmtc.ui.presenter;
 
+import java.net.UnknownHostException;
+
+import io.reactivex.Observable;
+import io.reactivex.Scheduler;
 import pao.de.queijo.omdbmtc.data.OmdbApi;
+import pao.de.queijo.omdbmtc.data.model.MovieResponse;
 import pao.de.queijo.omdbmtc.ui.view.MainView;
 
 /**
@@ -11,21 +16,45 @@ import pao.de.queijo.omdbmtc.ui.view.MainView;
 public class MainPresenter {
 
     private final MainView view;
+    private final Scheduler scheduler;
     private final OmdbApi api;
 
-    public MainPresenter(MainView view, OmdbApi api) {
+    public MainPresenter(MainView view, OmdbApi api, Scheduler scheduler) {
         this.api = api;
         this.view = view;
+        this.scheduler = scheduler;
     }
 
     public void fetch(String title, String year) {
-        api.getMovieByName(title)
-                .subscribe(response -> {
-                    if (response.isResponse()) {
-                        view.bindResult(response);
+        if (year.isEmpty()) {
+            execute(api.getMovieByName(title));
+        } else {
+            try {
+                execute(api.getMovieByNameAndYear(title, Integer.valueOf(year)));
+            } catch (NumberFormatException e) {
+                view.showInvalidNumberFormat();
+            }
+        }
+    }
+
+    private void execute(Observable<MovieResponse> response) {
+        response
+                .observeOn(scheduler)
+                .doOnSubscribe(Void -> view.flipLoader())
+                .doOnError(Void -> view.flipContent())
+                .doOnComplete(view::flipResults)
+                .subscribe(result -> {
+            if (result.isResponse()) {
+                view.bindResult(result.getSearch());
+            } else {
+                view.showMovieNotFound();
+            }}, error -> {
+                    if (error instanceof UnknownHostException) {
+                        view.showWireNotFound();
                     } else {
-                        view.showMovieNotFound();
+                        view.showSomethingWrongHappen();
                     }
                 });
     }
+
 }

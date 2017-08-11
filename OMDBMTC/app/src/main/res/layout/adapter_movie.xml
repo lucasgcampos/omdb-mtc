@@ -18,11 +18,13 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="Nome do filme" />
 
             <TextView
+                android:id="@+id/year"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="Ano" />
@@ -30,10 +32,12 @@
         </LinearLayout>
 
         <ImageView
-            tools:src="@drawable/ic_favorite_border"
+            android:id="@+id/favorite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:src="@drawable/ic_favorite_border"
+            tools:src="@drawable/ic_favorite_border" />
 
     </LinearLayout>
 

@@ -1,9 +1,9 @@
 package pao.de.queijo.omdbmtc.data;
 
 import io.reactivex.Observable;
-import pao.de.queijo.omdbmtc.data.model.Movie;
+import pao.de.queijo.omdbmtc.data.model.MovieResponse;
 import retrofit2.http.GET;
-import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * @author Lucas Campos
@@ -11,11 +11,10 @@ import retrofit2.http.Path;
  */
 public interface OmdbApi {
 
+    @GET("?apikey=1bcadfd2")
+    Observable<MovieResponse> getMovieByName(@Query("s") String name);
 
-    @GET("?t=${name}")
-    Observable<Movie> getMovieByName(@Path("name") String name);
-
-    @GET("?t=${name}&y=${year}")
-    Observable<Movie> getMovieByNameAndYear(@Path("name") String name, @Path("year") int year);
+    @GET("?apikey=1bcadfd2")
+    Observable<MovieResponse> getMovieByNameAndYear(@Query("s") String name, @Query("y") int year);
 
 }
