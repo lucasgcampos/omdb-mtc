@@ -11,7 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.ViewFlipper;
+
+import com.jakewharton.rxbinding2.widget.RxTextView;
 
 import java.util.List;
 
@@ -49,6 +52,9 @@ public class SearchMovieFragment extends Fragment implements MainView {
     @BindView(R.id.search)
     Button search;
 
+    @BindView(R.id.error)
+    TextView errorMessage;
+
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
 
@@ -65,6 +71,27 @@ public class SearchMovieFragment extends Fragment implements MainView {
         bind = ButterKnife.bind(this, view);
 
         presenter = new MainPresenter(this, RetrofitConfig.create("http://www.omdbapi.com/").createService(), AndroidSchedulers.mainThread());
+
+        title.setOnFocusChangeListener((view1, isFocused) -> {
+            if (isFocused) {
+                errorMessage.setVisibility(View.INVISIBLE);
+            } else {
+                if (title.getText().toString().isEmpty()) {
+                    errorMessage.setVisibility(View.VISIBLE);
+                    search.setEnabled(false);
+                }
+            }
+        });
+
+        RxTextView.textChanges(title)
+                .map(CharSequence::toString)
+                .subscribe(result -> {
+                    if (result.isEmpty()) {
+                        search.setEnabled(false);
+                    } else {
+                        search.setEnabled(true);
+                    }
+                });
 
         return view;
     }
@@ -147,6 +174,5 @@ public class SearchMovieFragment extends Fragment implements MainView {
         search.requestFocus();
         ViewUtils.hideKeyboard(title);
     }
-
 
 }

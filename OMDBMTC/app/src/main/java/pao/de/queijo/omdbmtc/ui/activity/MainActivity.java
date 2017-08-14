@@ -48,14 +48,11 @@ public class MainActivity extends AppCompatActivity {
         DefaultViewPagerAdapter adapter = new DefaultViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new FragmentWithTitle(new SearchMovieFragment(), "Lista filmes"));
         adapter.addFragment(new FragmentWithTitle(new FavoriteFragment(), "Favoritos"));
-
         viewPager.setAdapter(adapter);
     }
 
     private void setUpTabLayout() {
         tabLayout.setupWithViewPager(viewPager);
     }
-
-
 
 }

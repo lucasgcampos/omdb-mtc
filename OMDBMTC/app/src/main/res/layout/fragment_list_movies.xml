@@ -14,13 +14,29 @@
         android:layout_marginTop="24dp"
         android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/title"
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:singleLine="true"
-            android:hint="Título" />
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:hint="Título" />
+
+            <TextView
+                android:id="@+id/error"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Campo título obrigatório"
+                android:textSize="12sp"
+                android:visibility="invisible"
+                android:textColor="@color/red"/>
+
+        </LinearLayout>
 
         <EditText
             android:id="@+id/year"
@@ -40,30 +56,30 @@
     </LinearLayout>
 
     <ViewFlipper
-    android:id="@+id/view_flipper"
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="1">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
-        android:layout_gravity="center_horizontal"
-        android:textSize="36sp"
-        android:text="Você ainda não\n realizou buscas :(" />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
+        android:id="@+id/view_flipper"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-    <ProgressBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="64dp"
+            android:layout_gravity="center_horizontal"
+            android:textSize="36sp"
+            android:text="Você ainda não\n realizou buscas :(" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"/>
 
     </ViewFlipper>
 </LinearLayout>
