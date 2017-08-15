@@ -1,5 +1,6 @@
 package pao.de.queijo.omdbmtc.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,7 @@ import butterknife.Unbinder;
 import pao.de.queijo.omdbmtc.R;
 import pao.de.queijo.omdbmtc.data.model.Movie;
 import pao.de.queijo.omdbmtc.ui.activity.MainActivity;
+import pao.de.queijo.omdbmtc.ui.activity.MovieDetailsActivity;
 import pao.de.queijo.omdbmtc.ui.adapter.FavoriteAdapter;
 
 /**
@@ -25,7 +27,7 @@ import pao.de.queijo.omdbmtc.ui.adapter.FavoriteAdapter;
  * @since 1.0.0
  */
 
-public class FavoriteFragment extends Fragment {
+public class FavoriteFragment extends Fragment implements MainActivity.OnSelectItem {
 
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
@@ -55,8 +57,15 @@ public class FavoriteFragment extends Fragment {
         } else {
             viewFlipper.setDisplayedChild(1);
 
-            recyclerView.setAdapter(new FavoriteAdapter(((MainActivity) getActivity()).getFavorites()));
+            recyclerView.setAdapter(new FavoriteAdapter(((MainActivity) getActivity()).getFavorites(), this));
         }
+    }
+
+    @Override
+    public void onItemSelected(Movie movie) {
+        Intent intent = new Intent(getActivity(), MovieDetailsActivity.class);
+        intent.putExtra("data", movie);
+        startActivity(intent);
     }
 
     @Override

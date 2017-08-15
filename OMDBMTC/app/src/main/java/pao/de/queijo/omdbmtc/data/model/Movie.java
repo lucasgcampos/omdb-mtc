@@ -1,11 +1,14 @@
 package pao.de.queijo.omdbmtc.data.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * @author Lucas Campos
  * @since 1.0.0
  */
 
-public class Movie {
+public class Movie implements Parcelable {
 
     private String Title;
     private String Year;
@@ -50,4 +53,40 @@ public class Movie {
         result = 31 * result + (Poster != null ? Poster.hashCode() : 0);
         return result;
     }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.Title);
+        dest.writeString(this.Year);
+        dest.writeString(this.imdbID);
+        dest.writeString(this.Poster);
+    }
+
+    public Movie() {
+    }
+
+    protected Movie(Parcel in) {
+        this.Title = in.readString();
+        this.Year = in.readString();
+        this.imdbID = in.readString();
+        this.Poster = in.readString();
+    }
+
+    public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {
+        @Override
+        public Movie createFromParcel(Parcel source) {
+            return new Movie(source);
+        }
+
+        @Override
+        public Movie[] newArray(int size) {
+            return new Movie[size];
+        }
+    };
 }

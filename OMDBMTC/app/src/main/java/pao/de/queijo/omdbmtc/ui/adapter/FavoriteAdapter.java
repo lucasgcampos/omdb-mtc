@@ -13,6 +13,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import pao.de.queijo.omdbmtc.R;
 import pao.de.queijo.omdbmtc.data.model.Movie;
+import pao.de.queijo.omdbmtc.ui.activity.MainActivity;
 
 /**
  * @author Lucas Campos
@@ -22,9 +23,11 @@ import pao.de.queijo.omdbmtc.data.model.Movie;
 public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHolder> {
 
     private final List<Movie> favorites;
+    private final MainActivity.OnSelectItem onSelectItem;
 
-    public FavoriteAdapter(List<Movie> favorites) {
+    public FavoriteAdapter(List<Movie> favorites, MainActivity.OnSelectItem onSelectItem) {
         this.favorites = favorites;
+        this.onSelectItem = onSelectItem;
     }
 
     @Override
@@ -55,6 +58,8 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
                 holder.favorite.setImageResource(R.drawable.ic_favorite);
             }
         });
+
+        holder.itemView.setOnClickListener(v -> onSelectItem.onItemSelected(movie));
     }
 
     @Override
