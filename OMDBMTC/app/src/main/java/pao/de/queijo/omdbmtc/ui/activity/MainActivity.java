@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     ViewPager viewPager;
 
     private List<Movie> favorites = new ArrayList<>();
+    private FavoriteFragment favoriteFragment;
 
     public List<Movie> getFavorites() {
         return favorites;
@@ -45,14 +46,35 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setUpViewPager() {
+        favoriteFragment = new FavoriteFragment();
+
         DefaultViewPagerAdapter adapter = new DefaultViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new FragmentWithTitle(new SearchMovieFragment(), "Lista filmes"));
-        adapter.addFragment(new FragmentWithTitle(new FavoriteFragment(), "Favoritos"));
+        adapter.addFragment(new FragmentWithTitle(favoriteFragment, "Favoritos"));
         viewPager.setAdapter(adapter);
     }
 
     private void setUpTabLayout() {
         tabLayout.setupWithViewPager(viewPager);
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if (position == 1) {
+                    favoriteFragment.fetchData(favorites);
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
 }

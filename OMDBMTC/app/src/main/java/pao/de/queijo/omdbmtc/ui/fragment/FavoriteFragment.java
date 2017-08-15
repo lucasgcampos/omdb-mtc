@@ -44,15 +44,12 @@ public class FavoriteFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        List<Movie> favorites = ((MainActivity) getActivity()).getFavorites();
+        fetchData(favorites);
+
         return view;
     }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        final List<Movie> favorites = ((MainActivity) getActivity()).getFavorites();
-
+    public void fetchData(List<Movie> favorites) {
         if (favorites.isEmpty()) {
             viewFlipper.setDisplayedChild(0);
         } else {
