@@ -25,6 +25,9 @@ public class MovieDetailsPresenter {
     public void fetchData(String imdbID) {
         api.getMovieDetails(imdbID)
                 .observeOn(scheduler)
+                .doOnSubscribe(Void -> view.flipLoader())
+                .doOnError(Void -> view.flipContent())
+                .doOnComplete(view::flipContent)
                 .filter(MovieDetail::getResponse)
                 .subscribe(view::bind, error -> {});
     }

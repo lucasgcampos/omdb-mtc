@@ -11,4 +11,7 @@ public interface MovieDetailsView {
 
     void bind(MovieDetail detail);
 
+    void flipLoader();
+
+    void flipContent();
 }

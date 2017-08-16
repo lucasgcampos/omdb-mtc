@@ -3,7 +3,11 @@ package pao.de.queijo.omdbmtc.ui.activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ViewFlipper;
+
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,6 +37,12 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieDeta
     @BindView(R.id.description)
     TextView description;
 
+    @BindView(R.id.poster)
+    ImageView poster;
+
+    @BindView(R.id.view_flipper)
+    ViewFlipper viewFlipper;
+
     private Unbinder unbind;
     private MovieDetailsPresenter presenter;
 
@@ -52,5 +62,16 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieDeta
         title.setText(detail.getTitle());
         genre.setText(detail.getGenre());
         description.setText(detail.getPlot());
+        Picasso.with(this).load(detail.getPoster()).fit().into(poster);
+    }
+
+    @Override
+    public void flipLoader() {
+        viewFlipper.setDisplayedChild(1);
+    }
+
+    @Override
+    public void flipContent() {
+        viewFlipper.setDisplayedChild(0);
     }
 }
