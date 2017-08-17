@@ -22,6 +22,10 @@ import pao.de.queijo.omdbmtc.ui.activity.MainActivity;
 import pao.de.queijo.omdbmtc.ui.activity.MovieDetailsActivity;
 import pao.de.queijo.omdbmtc.ui.adapter.FavoriteAdapter;
 
+import static pao.de.queijo.omdbmtc.ui.activity.MainActivity.EXTRAS_IS_FAVORITE;
+import static pao.de.queijo.omdbmtc.ui.activity.MainActivity.EXTRAS_MOVIE;
+import static pao.de.queijo.omdbmtc.ui.activity.MainActivity.IDENTIFIER;
+
 /**
  * @author Lucas Campos
  * @since 1.0.0
@@ -64,8 +68,9 @@ public class FavoriteFragment extends Fragment implements MainActivity.OnSelectI
     @Override
     public void onItemSelected(Movie movie) {
         Intent intent = new Intent(getActivity(), MovieDetailsActivity.class);
-        intent.putExtra("data", movie);
-        startActivity(intent);
+        intent.putExtra(EXTRAS_MOVIE, movie);
+        intent.putExtra(EXTRAS_IS_FAVORITE, true);
+        startActivityForResult(intent, IDENTIFIER);
     }
 
     @Override

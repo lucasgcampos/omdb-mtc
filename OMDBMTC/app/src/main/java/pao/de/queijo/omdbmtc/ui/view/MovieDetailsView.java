@@ -14,4 +14,8 @@ public interface MovieDetailsView {
     void flipLoader();
 
     void flipContent();
+
+    void showWireNotFound();
+
+    void showSomethingWrongHappen();
 }

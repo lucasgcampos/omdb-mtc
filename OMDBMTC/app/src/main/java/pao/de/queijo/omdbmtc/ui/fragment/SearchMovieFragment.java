@@ -34,6 +34,10 @@ import pao.de.queijo.omdbmtc.ui.adapter.MovieAdapter;
 import pao.de.queijo.omdbmtc.ui.presenter.MainPresenter;
 import pao.de.queijo.omdbmtc.ui.view.MainView;
 
+import static pao.de.queijo.omdbmtc.ui.activity.MainActivity.EXTRAS_IS_FAVORITE;
+import static pao.de.queijo.omdbmtc.ui.activity.MainActivity.EXTRAS_MOVIE;
+import static pao.de.queijo.omdbmtc.ui.activity.MainActivity.IDENTIFIER;
+
 /**
  * @author Lucas Campos
  * @since 1.0.0
@@ -108,7 +112,11 @@ public class SearchMovieFragment extends Fragment implements MainView, MainActiv
     public void bindResult(List<Movie> movies) {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(new MovieAdapter(movies, ((MainActivity) getActivity()).getFavorites(), this));
+        recyclerView.setAdapter(new MovieAdapter(movies, getFavorites(), this));
+    }
+
+    private List<Movie> getFavorites() {
+        return ((MainActivity) getActivity()).getFavorites();
     }
 
     @Override
@@ -173,8 +181,9 @@ public class SearchMovieFragment extends Fragment implements MainView, MainActiv
     @Override
     public void onItemSelected(Movie movie) {
         Intent intent = new Intent(getActivity(), MovieDetailsActivity.class);
-        intent.putExtra("data", movie);
-        startActivity(intent);
+        intent.putExtra(EXTRAS_MOVIE, movie);
+        intent.putExtra(EXTRAS_IS_FAVORITE, getFavorites().contains(movie));
+        startActivityForResult(intent, IDENTIFIER);
     }
 
     private void hideKeyboard() {
@@ -184,4 +193,7 @@ public class SearchMovieFragment extends Fragment implements MainView, MainActiv
         ViewUtils.hideKeyboard(title);
     }
 
+    public void notifyChange() {
+        recyclerView.getAdapter().notifyDataSetChanged();
+    }
 }

@@ -1,5 +1,7 @@
 package pao.de.queijo.omdbmtc.ui.activity;
 
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -23,6 +25,10 @@ import pao.de.queijo.omdbmtc.ui.fragment.SearchMovieFragment;
  */
 public class MainActivity extends AppCompatActivity {
 
+    public static final int IDENTIFIER = 123;
+    public static final String EXTRAS_MOVIE = "data";
+    public static final String EXTRAS_IS_FAVORITE = "isFavorite";
+
     @BindView(R.id.tabs)
     TabLayout tabLayout;
 
@@ -31,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
     private List<Movie> favorites = new ArrayList<>();
     private FavoriteFragment favoriteFragment;
+    private SearchMovieFragment searchFragment;
 
     public List<Movie> getFavorites() {
         return favorites;
@@ -43,13 +50,15 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         setUpViewPager();
         setUpTabLayout();
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
     private void setUpViewPager() {
         favoriteFragment = new FavoriteFragment();
+        searchFragment = new SearchMovieFragment();
 
         DefaultViewPagerAdapter adapter = new DefaultViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new FragmentWithTitle(new SearchMovieFragment(), "Lista filmes"));
+        adapter.addFragment(new FragmentWithTitle(searchFragment, "Lista filmes"));
         adapter.addFragment(new FragmentWithTitle(favoriteFragment, "Favoritos"));
         viewPager.setAdapter(adapter);
     }
@@ -71,6 +80,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onPageScrollStateChanged(int state) { }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        boolean isFavorite = data.getBooleanExtra(EXTRAS_IS_FAVORITE, false);
+        Movie movie = data.getParcelableExtra(EXTRAS_MOVIE);
+
+        if (isFavorite && !favorites.contains(movie)) {
+            favorites.add(movie);
+            searchFragment.notifyChange();
+        } else if (!isFavorite && favorites.contains(movie)) {
+            favorites.remove(movie);
+            searchFragment.notifyChange();
+        }
     }
 
     public interface OnSelectItem {

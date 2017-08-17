@@ -1,5 +1,7 @@
 package pao.de.queijo.omdbmtc.ui.presenter;
 
+import java.net.UnknownHostException;
+
 import io.reactivex.Scheduler;
 import pao.de.queijo.omdbmtc.data.OmdbApi;
 import pao.de.queijo.omdbmtc.data.model.MovieDetail;
@@ -29,6 +31,12 @@ public class MovieDetailsPresenter {
                 .doOnError(Void -> view.flipContent())
                 .doOnComplete(view::flipContent)
                 .filter(MovieDetail::getResponse)
-                .subscribe(view::bind, error -> {});
+                .subscribe(view::bind, error -> {
+                    if (error instanceof UnknownHostException) {
+                        view.showWireNotFound();
+                    } else {
+                        view.showSomethingWrongHappen();
+                    }
+                });
     }
 }
