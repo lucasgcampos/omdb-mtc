@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,11 +24,14 @@ import pao.de.queijo.omdbmtc.ui.fragment.SearchMovieFragment;
  * @author Lucas Campos
  * @since 1.0.0
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     public static final int IDENTIFIER = 123;
     public static final String EXTRAS_MOVIE = "data";
     public static final String EXTRAS_IS_FAVORITE = "isFavorite";
+
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
 
     @BindView(R.id.tabs)
     TabLayout tabLayout;
@@ -50,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         setUpViewPager();
         setUpTabLayout();
+        setUpToolbar(toolbar, "OMDBMTC");
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 

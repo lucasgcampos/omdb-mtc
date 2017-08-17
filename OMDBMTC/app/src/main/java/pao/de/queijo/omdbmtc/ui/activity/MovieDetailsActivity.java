@@ -5,7 +5,7 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
@@ -32,7 +32,10 @@ import static pao.de.queijo.omdbmtc.ui.activity.MainActivity.EXTRAS_MOVIE;
  * @since 1.0.0
  */
 
-public class MovieDetailsActivity extends AppCompatActivity implements MovieDetailsView {
+public class MovieDetailsActivity extends BaseActivity implements MovieDetailsView {
+
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
 
     @BindView(R.id.title)
     TextView title;
@@ -65,8 +68,9 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieDeta
 
         presenter = new MovieDetailsPresenter(this, RetrofitConfig.create("http://www.omdbapi.com/").createService(), AndroidSchedulers.mainThread());
         presenter.fetchData(movie.getImdbID());
-
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        setUpToolbar(toolbar, "Título desta tela", R.drawable.ic_back_arrow, this::onBackPressed);
     }
 
     @Override
