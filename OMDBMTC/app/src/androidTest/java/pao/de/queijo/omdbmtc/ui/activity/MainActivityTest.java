@@ -1,7 +1,8 @@
 package pao.de.queijo.omdbmtc.ui.activity;
 
-import android.support.test.espresso.action.ViewActions;
-import android.support.test.rule.ActivityTestRule;
+
+import android.content.Intent;
+import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.Rule;
@@ -12,25 +13,29 @@ import pao.de.queijo.omdbmtc.R;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.typeText;
+import static android.support.test.espresso.intent.Intents.intended;
+import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
-/**
- * Instrumentation test, which will execute on an Android device.
- *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
- */
 @RunWith(AndroidJUnit4.class)
 public class MainActivityTest {
 
     @Rule
-    ActivityTestRule<MainActivity> a = new ActivityTestRule<>(MainActivity.class, true, false);
-
+    public IntentsTestRule<MainActivity> activityRule = new IntentsTestRule<>(MainActivity.class, true, false);
 
     @Test
-    public void useAppContext() throws Exception {
-        onView(withId(R.id.title)).perform(ViewActions.typeText("Superman"));
+    public void mainActivityTest() throws InterruptedException {
+        activityRule.launchActivity(new Intent());
+
+        onView(withId(R.id.search_title)).perform(typeText("spider man"));
+
         onView(withId(R.id.search)).perform(click());
 
+        onView(withText("Spider-Man: Homecoming")).perform(click());
 
+        intended(hasComponent(MovieDetailsActivity.class.getName()));
     }
+
 }

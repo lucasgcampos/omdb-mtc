@@ -49,7 +49,7 @@ public class SearchMovieFragment extends Fragment implements MainView, MainActiv
     private static final int SHOW_RESULTS = 1;
     private static final int SHOW_EMPTY_STATE = 0;
 
-    @BindView(R.id.title)
+    @BindView(R.id.search_title)
     EditText title;
 
     @BindView(R.id.year)
@@ -82,7 +82,7 @@ public class SearchMovieFragment extends Fragment implements MainView, MainActiv
             if (isFocused) {
                 errorMessage.setVisibility(View.INVISIBLE);
             } else {
-                if (title.getText().toString().isEmpty()) {
+                if (title != null && title.getText().toString().isEmpty()) {
                     errorMessage.setVisibility(View.VISIBLE);
                     search.setEnabled(false);
                 }
@@ -174,7 +174,7 @@ public class SearchMovieFragment extends Fragment implements MainView, MainActiv
     void onClickSearch() {
         if (search.isEnabled()) {
             hideKeyboard();
-            presenter.fetch(title.getText().toString(), year.getText().toString());
+            presenter.fetch(title.getText().toString().trim(), year.getText().toString());
         }
     }
 

@@ -43,19 +43,18 @@ public class MainPresenter {
                 .doOnSubscribe(Void -> view.flipLoader())
                 .doOnError(Void -> view.flipContent())
                 .subscribe(result -> {
-            if (result.isResponse()) {
-                view.bindResult(result.getSearch());
-                view.flipResults();
-            } else {
-                view.flipContent();
-                view.showMovieNotFound();
-            }}, error -> {
-                    if (error instanceof UnknownHostException) {
-                        view.showWireNotFound();
+                    if (result.isResponse()) {
+                        view.bindResult(result.getSearch());
+                        view.flipResults();
                     } else {
-                        view.showSomethingWrongHappen();
-                    }
-                });
+                        view.flipContent();
+                        view.showMovieNotFound();
+                    }}, error -> {
+                            if (error instanceof UnknownHostException) {
+                                view.showWireNotFound();
+                            } else {
+                                view.showSomethingWrongHappen();
+                            }});
     }
 
 }
