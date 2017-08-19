@@ -24,6 +24,7 @@ public class BaseActivity extends AppCompatActivity {
 
         if (navigationIconId != 0) {
             toolbar.setNavigationIcon(VectorDrawableCompat.create(getResources(), navigationIconId, getTheme()));
+            toolbar.setNavigationContentDescription("voltar");
 
             if (action != null) {
                 toolbar.setNavigationOnClickListener(v -> {
