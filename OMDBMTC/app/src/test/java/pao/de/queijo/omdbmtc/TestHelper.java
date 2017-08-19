@@ -20,6 +20,11 @@ public class TestHelper {
         @Override
         public Worker createWorker() {
             return new Worker() {
+                @Override
+                public Disposable schedule(Runnable run, long delay, TimeUnit unit) {
+                    run.run();
+                    return Observable.empty().subscribe();
+                }
 
                 @Override
                 public void dispose() {
@@ -29,11 +34,6 @@ public class TestHelper {
                 @Override
                 public boolean isDisposed() {
                     return false;
-                }
-
-                @Override
-                public Disposable schedule(Runnable run, long delay, TimeUnit unit) {
-                    return Observable.just(0).subscribe();
                 }
             };
         }
