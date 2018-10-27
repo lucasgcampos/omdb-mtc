@@ -9,3 +9,5 @@
 .externalNativeBuild
 .idea/compiler.xml
 .idea/misc.xml
+.idea/compiler.xml
+.idea/*
