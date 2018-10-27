@@ -79,6 +79,7 @@ public class MainPresenterTest {
 
         // then
         verify(view).flipLoader();
+        System.out.println(response.getSearch().toString());
         verify(view).bindResult(response.getSearch());
         verify(view).flipResults();
     }

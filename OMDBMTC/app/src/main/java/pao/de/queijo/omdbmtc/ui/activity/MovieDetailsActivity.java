@@ -70,7 +70,7 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsVi
         presenter.fetchData(movie.getImdbID());
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        setUpToolbar(toolbar, "Título desta tela", R.drawable.ic_back_arrow, this::onBackPressed);
+        setUpToolbar(toolbar, "Detalhes do filme", R.drawable.ic_back_arrow, this::onBackPressed);
     }
 
     @Override

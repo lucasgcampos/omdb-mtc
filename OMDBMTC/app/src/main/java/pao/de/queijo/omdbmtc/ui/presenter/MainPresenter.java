@@ -26,6 +26,7 @@ public class MainPresenter {
     }
 
     public void fetch(String title, String year) {
+
         if (year.isEmpty()) {
             execute(api.getMovieByName(title));
         } else {

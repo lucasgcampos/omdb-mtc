@@ -54,7 +54,7 @@ public class MainActivity extends BaseActivity {
         ButterKnife.bind(this);
         setUpViewPager();
         setUpTabLayout();
-        setUpToolbar(toolbar, "OMDBMTC");
+        setUpToolbar(toolbar, "Agile Testers Conference");
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
@@ -64,6 +64,7 @@ public class MainActivity extends BaseActivity {
 
         DefaultViewPagerAdapter adapter = new DefaultViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new FragmentWithTitle(searchFragment, "Lista filmes"));
+
         adapter.addFragment(new FragmentWithTitle(favoriteFragment, "Favoritos"));
         viewPager.setAdapter(adapter);
     }
