@@ -42,12 +42,13 @@
 
         <EditText
             android:id="@+id/year"
-            android:contentDescription="@string/search_year_desc"
             android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:inputType="number"
             android:singleLine="true"
             android:maxLength="4"
+            android:minHeight="48dp"
+            android:minWidth="48dp"
             android:hint="Ano" />
 
         <Button

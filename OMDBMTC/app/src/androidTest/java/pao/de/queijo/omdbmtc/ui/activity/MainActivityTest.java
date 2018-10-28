@@ -37,7 +37,7 @@ public class MainActivityTest {
 
     @BeforeClass
     public static void enableAccessibilityChecks() {
-        AccessibilityChecks.enable();
+        AccessibilityChecks.enable().setRunChecksFromRootView(true);
     }
 
     @Test
@@ -72,7 +72,7 @@ public class MainActivityTest {
         activityRule.launchActivity(new Intent());
 
         onView(withId(R.id.year)).perform(typeText("1099"));
-        onView(withId(R.id.error)).check(matches(not(isEnabled())));
+        onView(withId(R.id.search)).check(matches(not(isEnabled())));
     }
 
     private void verifyMovieDetails() {
