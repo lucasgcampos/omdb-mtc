@@ -76,7 +76,7 @@ public class SearchMovieFragment extends Fragment implements MainView, MainActiv
         View view = inflater.inflate(R.layout.fragment_list_movies, container, false);
         bind = ButterKnife.bind(this, view);
 
-        presenter = new MainPresenter(this, RetrofitConfig.create("http://www.omdbapi.com/").createService(), AndroidSchedulers.mainThread());
+            presenter = new MainPresenter(this, RetrofitConfig.create("http://www.omdbapi.com/").createService(), AndroidSchedulers.mainThread());
 
         title.setOnFocusChangeListener((view1, isFocused) -> {
             if (isFocused) {
@@ -174,6 +174,7 @@ public class SearchMovieFragment extends Fragment implements MainView, MainActiv
     void onClickSearch() {
         if (search.isEnabled()) {
             hideKeyboard();
+
             presenter.fetch(title.getText().toString().trim(), year.getText().toString());
         }
     }

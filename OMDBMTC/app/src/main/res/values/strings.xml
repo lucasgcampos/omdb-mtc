@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">OMDB MTC</string>
+    <string name="app_name">Agile Testers Conference</string>
+    <string name="home">Agile Testers Conference</string>
+    <string name="search_result">Resultado da busca</string>
+    <string name="movie_tittle">Título do filme</string>
+    <string name="movie_year">Data de lançamento do filme</string>
+    <string name="favorite_movie">Favoritar filme</string>
+    <string name="search_title_desc">Título de busca</string>
+    <string name="search_year_desc">Ano do filme</string>
+    <string name="poster">Capa do filme</string>
 </resources>

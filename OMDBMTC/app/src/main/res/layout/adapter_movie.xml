@@ -8,6 +8,8 @@
     android:elevation="4dp">
 
     <LinearLayout
+        android:id="@+id/movie"
+        android:contentDescription="@string/search_result"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -21,12 +23,14 @@
 
             <TextView
                 android:id="@+id/title"
+                android:contentDescription="@string/movie_tittle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="Nome do filme" />
 
             <TextView
                 android:id="@+id/year"
+                android:contentDescription="@string/movie_year"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="Ano" />
@@ -35,6 +39,9 @@
 
         <ImageView
             android:id="@+id/favorite"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            android:contentDescription="@string/favorite_movie"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
